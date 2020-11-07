@@ -22,12 +22,22 @@ import javax.faces.context.FacesContext;
 * @author Shuang Xu
 * 
 */
-@ManagedBean(name = "propertyManagedBean")
+@ManagedBean(name = "customerContactManagedBean")
 @SessionScoped
 
 public class CustomerContactManagedBean implements Serializable {
 	@EJB
 	CustomerContactRepository customerContactRepository;
+	
+	private int selectedId;
+
+    public int getSelectedId() {
+        return selectedId;
+    }
+
+    public void setSelectedId(int selectedId) {
+        this.selectedId = selectedId;
+    }
 
 	/**
      * Creates a new instance of CustomerContactManagedBean
@@ -66,16 +76,22 @@ public class CustomerContactManagedBean implements Serializable {
 		return null;
 	}
 
-	public Set<CustomerContact> searchCustomerContactByCustomerId(Customer customer) {
+	public List<CustomerContact> searchCustomerContactByCustomerId(int customerId) {
 		try {
-			return customerContactRepository.searchCustomerContactByCustomer(customer);
-		} catch (Exception ex) {
-			Logger.getLogger(CustomerContactManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-		}
+            //retrieve contact person by id
+            for (Customer customer : customerContactRepository.getAllCustomers()) {
+                if (customer.getCustomerId() == customerId) {
+                    return customerContactRepository.searchCustomerContactByCustomer(customer);
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerContactManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-		return null;
-	}
+        return null;
+    }
 
+	
 	public List<Customer> getAllCustomers() throws Exception {
 		try {
 			return customerContactRepository.getAllCustomers();
@@ -137,7 +153,8 @@ public class CustomerContactManagedBean implements Serializable {
         String industryDesc = localCustomerContact.getIndustryDesc();
         
         Industry industry = new Industry(industryType,industryDesc);
-        Customer customer = new Customer(customerId, address , officephone,companyName,registerDate, aBN,email, CEO, industry);
+        
+        Customer customer = new Customer(customerId, address , officephone,companyName,registerDate, aBN,email, CEO, industry, getAllCustomerContacts());
         
                     
         customerContact.setCustomerContactId(localCustomerContact.getCustomerContactId());

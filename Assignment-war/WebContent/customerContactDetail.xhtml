@@ -33,14 +33,13 @@
 				<tr>
 					<td width="100" valign="top">Contact Phone:</td>
 
-					<td valign="bottom"><h:outputLabel id="ContactPhone">#{customerContactController.customerContact.contactName}</h:outputLabel>
+					<td valign="bottom"><h:outputLabel id="ContactPhone">#{customerContactController.customerContact.contactPhone}</h:outputLabel>
 					</td>
 				</tr>
 				<tr>
 					<td width="100" valign="top">Email:</td>
 
-					<td valign="bottom"><h:outputLabel id="Email">
-                                #{customerContactContactController.customerContact.email}                               
+					<td valign="bottom"><h:outputLabel id="Email">#{customerContactController.customerContact.contactEmail}                               
 						</h:outputLabel></td>
 				</tr>
 				<tr>
@@ -70,8 +69,11 @@
 				
 
 			</table>
-			<h:link id="close" value="Close" outcome="faces/indexContact.xhtml"
-				class="btn btn-primary" />
+			<h:link id="close" value="Close" outcome="faces/indexContact.xhtml.xhtml"
+				class="btn btn-primary" >
+				<f:param name="customerIndex" value="#{customerContactController.customerContact.customer.customerId}" />
+				<f:param name="customerId" value="#{customerContactController.customerContact.customer.customerId}" />	
+					</h:link>
 
 		</h:form>
 	</div>

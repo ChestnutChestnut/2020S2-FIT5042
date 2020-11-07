@@ -1,8 +1,12 @@
 package fit5042.assignm.repository.entities;
 
+
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -15,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -22,10 +28,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CUSTOMER_CONTACT")
-@NamedQueries({ @NamedQuery(name = CustomerContact.GET_ALL_QUERY_NAME, query = "SELECT a FROM CustomerContact a order by a.customerContactId desc") })
+@NamedQueries({ @NamedQuery(name = CustomerContact.GET_ALL_CONTACT_QUERY_NAME, query = "SELECT a FROM CustomerContact a order by a.customerContactId desc") })
 public class CustomerContact implements Serializable {
 
-	public static final String GET_ALL_QUERY_NAME = "CustomerContact.getAll";
+	public static final String GET_ALL_CONTACT_QUERY_NAME = "CustomerContact.getAll";
 
 	private int customerContactId;
 	private String contactName;
@@ -65,7 +71,7 @@ public class CustomerContact implements Serializable {
 		this.customerContactId = customerContactId;
 	}
 
-
+	@NotNull(message = "Contact email should not be null")
 	public String getContactName() {
 		return contactName;
 	}
@@ -86,12 +92,12 @@ public class CustomerContact implements Serializable {
 		this.contactPhone = contactPhone;
 	}
 
-
+	@NotEmpty(message = "Contact email should not be empty") 
 	public String getContactEmail() {
 		return contactEmail;
 	}
 
-
+    
 	public void setContactEmail(String contactEmail) {
 		this.contactEmail = contactEmail;
 	}

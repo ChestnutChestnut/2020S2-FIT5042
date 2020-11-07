@@ -63,6 +63,8 @@ public class Customer implements Serializable  {
 	public int getCustomerId() {
 		return customerId;
 	}
+	
+	
 
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;

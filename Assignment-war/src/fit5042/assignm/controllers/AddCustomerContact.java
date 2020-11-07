@@ -8,6 +8,7 @@ import javax.inject.Named;
 
 import fit5042.assignm.mbeans.CustomerContactManagedBean;
 import fit5042.assignm.mbeans.CustomerManagedBean;
+import fit5042.assignm.repository.entities.Customer;
 import fit5042.assignm.repository.entities.CustomerContact;
 
 import javax.faces.bean.ManagedProperty;
@@ -18,7 +19,7 @@ import javax.faces.bean.ManagedProperty;
 * @author Shuang Xu
 */
 @RequestScoped
-@Named("addCustomerContact")
+@Named("AddCustomerContact")
 public class AddCustomerContact {
 	@ManagedProperty(value="#{customerContactManagedBean}") 
 	CustomerContactManagedBean customerContactManagedBean;
@@ -27,7 +28,14 @@ public class AddCustomerContact {
 
     private CustomerContact customerContact;
     
+    
+    private Customer customer;
+    
+    private int customerId;
+    
     ContactApplication app;
+    
+    CustomerApplication custApp;
     
     public void setCustomerContact(CustomerContact customerContact){
         this.customerContact = customerContact;
@@ -51,18 +59,36 @@ public class AddCustomerContact {
                         .getELResolver()
                         .getValue(context, null, "contactApplication");
         
+        custApp  = (CustomerApplication) FacesContext.getCurrentInstance()
+                .getApplication()
+                .getELResolver()
+                .getValue(context, null, "customerApplication");
+        
         //instantiate customerContactManagedBean
         ELContext elContext = FacesContext.getCurrentInstance().getELContext();
         customerContactManagedBean = (CustomerContactManagedBean) FacesContext.getCurrentInstance().getApplication()
         .getELResolver().getValue(elContext, null, "customerContactManagedBean");
+         
+        
+        //instantiate customerContact
+        customerContact = new CustomerContact();
+        
+        //instantiate customerId and customer
+        customerId = getCustomerId();
+        //customerId = Integer.valueOf(
+		//		FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("customerId"));
+        
+       
     }
 
-    public void addCustomerContact(CustomerContact localCustomerContact) {
+    public void addCustomerContactInfor() {
         //this is the local property, not the entity
-       try
-       {
+       try{
+    	   
+    	   setCustomer(custApp.getCustomerById(customerId));
+    	   customerContact.setCustomer(getCustomer());
             //add this property to db via EJB
-    	   customerContactManagedBean.addCustomerContact(localCustomerContact);
+    	   customerContactManagedBean.addCustomerContact(customerContact);
 
             //refresh the list in PropertyApplication bean
             app.searchAll();
@@ -77,6 +103,22 @@ public class AddCustomerContact {
        }
         showForm = true;
     }
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public int getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
 
 	
 }

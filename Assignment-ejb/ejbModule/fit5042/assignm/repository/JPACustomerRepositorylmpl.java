@@ -30,7 +30,7 @@ public class JPACustomerRepositorylmpl implements CustomerRepository {
 	
 	@Override
     public void addCustomer(Customer customer) throws Exception {
-    	List<Customer> customers =  entityManager.createNamedQuery(Customer.GET_ALL_QUERY_NAME).getResultList(); 
+    	List<Customer> customers =  entityManager.createNamedQuery(Customer.GET_ALL_CUSTOMERS_QUERY_NAME).getResultList(); 
     	customer.setCustomerId(customers.get(0).getCustomerId() + 1);
         entityManager.persist(customer);
     }
@@ -63,7 +63,7 @@ public class JPACustomerRepositorylmpl implements CustomerRepository {
     
     @Override
     public List<Customer> getAllCustomers() throws Exception {
-        return entityManager.createNamedQuery(Customer.GET_ALL_QUERY_NAME).getResultList();
+        return entityManager.createNamedQuery(Customer.GET_ALL_CUSTOMERS_QUERY_NAME).getResultList();
     }
 	
 

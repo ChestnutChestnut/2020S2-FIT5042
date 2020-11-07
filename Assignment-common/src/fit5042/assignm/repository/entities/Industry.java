@@ -5,6 +5,12 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  *
@@ -14,7 +20,7 @@ import javax.persistence.Embeddable;
 @Access(AccessType.PROPERTY)
 public class Industry implements Serializable {
     
-   
+	//public static final String GET_ALL_QUERY_NAME = "Industry.getAll";
 
 	private String industryType;
     private String industryDesc;
@@ -22,12 +28,14 @@ public class Industry implements Serializable {
 
     public Industry() {
     }
+    
 
     public Industry(String industryType, String industryDesc) {
 		this.industryType = industryType;
 		this.industryDesc = industryDesc;
 	}
     
+  
     @Column(name = "Industry_type")    
 	public String getIndustryType() {
 		return industryType;

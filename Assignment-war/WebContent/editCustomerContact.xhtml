@@ -38,17 +38,17 @@
 					<td width="100" valign="top">Contact Phone:</td>
 
 					<td valign="bottom"><h:inputText id="ContactPhone"
-							value="#{customerContactController.customerContact.ContactPhone}"
+							value="#{customerContactController.customerContact.contactPhone}"
 							required="true"
 							validatorMessage="Please enter a valid Contact Phone"
 							requiredMessage="Please enterContact Phone. "></h:inputText></td>
 				</tr>
 
 				<tr>
-					<td width="100" valign="top">Email:</td>
+					<td width="100" valign="top">Contact Email:</td>
 
-					<td valign="bottom"><h:inputText id="Email"
-							value="#{customerContactController.customerContact.email}"
+					<td valign="bottom"><h:inputText id="contactEmail"
+							value="#{customerContactController.customerContact.contactEmail}"
 							required="true" validatorMessage="Please enter an email"
 							requiredMessage="Please enter an email. "></h:inputText></td>
 				</tr>
@@ -83,13 +83,18 @@
 			</table>
 
 			<h:commandButton id="save" value="Save"
-				action="#{customerContactManagedBean.editCustomerConstact(customerContactController.customerContact)}"
+				action="#{customerContactManagedBean.editCustomerContact(customerContactController.customerContact)}"
 				class="btn btn-primary">
-				<f:param name="customerIndex"
-					value="#{customerContactController.customerIndex+1}" />
+				<f:param name="customerContactIndex"
+					value="#{customerContactController.customerContactIndex+1}" />
 			</h:commandButton>
-			<h:link id="close" value="Close" outcome="faces/indexContact.xhtml"
-				class="btn btn-primary" />
+			<h:link id="close" value="Close" outcome="faces/indexContact.xhtml.xhtml"
+				class="btn btn-primary" >
+				<f:param name="customerIndex" value="#{customerContactController.customerContact.customer.customerId}" />
+				<f:param name="customerId" value="#{customerContactController.customerContact.customer.customerId}" />	
+					</h:link>
+				
+				
 		</h:form>
 	</div>
 </h:body>

@@ -114,9 +114,19 @@ public class CustomerApplication {
         setCustomers(customers);
     }
     
+    public Customer getCustomerById(int customerId) {
+    	Customer customer = new Customer();
+    	for(Customer cust:getCustomers()) {
+    		if (cust.getCustomerId() == customerId) {
+    			return cust;
+    		}
+    	}
+		return customer;
+    }
    
     
-   
+    
+
     
 
 }

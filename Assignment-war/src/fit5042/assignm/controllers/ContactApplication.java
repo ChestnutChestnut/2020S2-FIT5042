@@ -2,6 +2,7 @@ package fit5042.assignm.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
 
@@ -23,6 +24,9 @@ public class ContactApplication {
     CustomerContactManagedBean customerContactManagedBean;
     private ArrayList<CustomerContact> customerContacts;
     
+   
+    
+   
     private boolean showForm = true;
     
     public boolean isShowForm() {
@@ -34,6 +38,12 @@ public class ContactApplication {
        
         customerContacts = new ArrayList<>();
         
+        
+        
+        //instantiate customerId
+       
+        // Assign customer based on the id provided 
+        
       //instantiate customerContactManagedBean
         ELContext elContext = FacesContext.getCurrentInstance().getELContext();
         customerContactManagedBean = (CustomerContactManagedBean) FacesContext.getCurrentInstance().getApplication()
@@ -41,6 +51,8 @@ public class ContactApplication {
 
         //get customerContacts from db 
         updateCustomerContactList();
+      
+        
     }
     
     public ArrayList<CustomerContact> getCustomerContacts() {
@@ -60,9 +72,9 @@ public class ContactApplication {
         {
         	customerContacts.clear();
         	
-        	
+        	List<CustomerContact> contacts = customerContactManagedBean.getAllCustomerContacts();
 
-            for (fit5042.assignm.repository.entities.CustomerContact customerContact : customerContactManagedBean.getAllCustomerContacts())
+            for (CustomerContact customerContact : contacts)
             {
             	customerContacts.add(customerContact);
             }
@@ -78,6 +90,16 @@ public class ContactApplication {
     	customerContacts.add(customerContactManagedBean.searchCustomerContactById(customerContactId));
     }
     
+    public void searchCustomerContactByCustomerId(int customerId) {
+    	customerContacts.clear();
+        List<CustomerContact> customerContactsByCustomer = customerContactManagedBean.searchCustomerContactByCustomerId(customerId);
+        for (CustomerContact customerContacteach: customerContactsByCustomer) {
+        	customerContacts.add(customerContacteach);
+        }
+       
+
+    }
+    
     public void searchAll()
     {
         customerContacts.clear();
@@ -90,5 +112,7 @@ public class ContactApplication {
         setCustomerContacts(customerContacts);
     }
 
+	
+	
 
 }

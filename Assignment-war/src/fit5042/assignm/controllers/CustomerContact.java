@@ -46,8 +46,7 @@ public class CustomerContact implements Serializable{
 	}
 	
 	public CustomerContact(int customerContactId, String contactName, int contactPhone, String contactEmail, String position,
-			String gender, Customer customer, int customerId,
-			Set<fit5042.assignm.repository.entities.CustomerContact> customerContacts) {
+			String gender, Customer customer){
 		
 		this.customerContactId = customerContactId;
 		this.contactName = contactName;

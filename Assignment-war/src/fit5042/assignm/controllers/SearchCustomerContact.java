@@ -14,12 +14,23 @@ import fit5042.assignm.repository.entities.CustomerContact;
 @RequestScoped
 @Named("searchCustomerContact")
 public class SearchCustomerContact {
+	private boolean showForm = true;
 	private CustomerContact customerContact;
 
 	ContactApplication app;
 
 	private int searchByInt;
 	
+	private int customerId;
+	
+	public int getCustomerId() {
+
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
 
 	public ContactApplication getApp() {
 		return app;
@@ -74,7 +85,20 @@ public class SearchCustomerContact {
 		}
 	}
 
+	public boolean isShowForm() {
+	        return showForm;
+	    }
 	
+	public void searchCustomerContactByCustomerId(int customerId) {
+        try {
+        	int p = customerId;
+            //search all customerContacts by customerId from db via EJB 
+            app.searchCustomerContactByCustomerId(customerId);
+        } catch (Exception ex) {
+
+        }
+        showForm = true;
+    }
 
 	public void searchAll() {
 		try {

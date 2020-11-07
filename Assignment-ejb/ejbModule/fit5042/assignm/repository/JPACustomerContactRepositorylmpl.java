@@ -28,9 +28,12 @@ public class JPACustomerContactRepositorylmpl implements CustomerContactReposito
 	
 	@Override
     public void addCustomerContact(CustomerContact customerContact) throws Exception {
-    	List<CustomerContact> customerContacts =  entityManager.createNamedQuery(CustomerContact.GET_ALL_QUERY_NAME).getResultList(); 
+    	List<CustomerContact> customerContacts =  entityManager.createNamedQuery(CustomerContact.GET_ALL_CONTACT_QUERY_NAME).getResultList(); 
     	customerContact.setCustomerContactId(customerContacts.get(0).getCustomerContactId() + 1);
-        entityManager.persist(customerContact);
+        Customer customer = customerContact.getCustomer();
+        customer.getCustomerContacts().add(customerContact);
+    	entityManager.merge(customer);
+        //entityManager.flush();
     }
      
     @Override
@@ -41,14 +44,14 @@ public class JPACustomerContactRepositorylmpl implements CustomerContactReposito
 
     @Override
     public List<CustomerContact> getAllCustomerContacts() throws Exception {
-        return entityManager.createNamedQuery(CustomerContact.GET_ALL_QUERY_NAME).getResultList();
+        return entityManager.createNamedQuery(CustomerContact.GET_ALL_CONTACT_QUERY_NAME).getResultList();
     }
     
 
 
     @Override
-    public Set<CustomerContact> searchCustomerContactByCustomer(Customer customer) throws Exception {
-        customer = entityManager.find(Customer.class, customer.getCustomerId());
+    public List<CustomerContact> searchCustomerContactByCustomer(Customer customer) throws Exception {
+       customer = entityManager.find(Customer.class, customer.getCustomerId());
        customer.getCustomerContacts().size();
         entityManager.refresh(customer);
 
@@ -57,7 +60,7 @@ public class JPACustomerContactRepositorylmpl implements CustomerContactReposito
 
     @Override
     public List<Customer> getAllCustomers() throws Exception {
-        return entityManager.createNamedQuery(Customer.GET_ALL_QUERY_NAME).getResultList();
+        return entityManager.createNamedQuery(Customer.GET_ALL_CUSTOMERS_QUERY_NAME).getResultList();
     }
 
     @Override

@@ -92,7 +92,11 @@
 							<td><h:outputLabel value="email" for="email" /></td>
 							<td><h:inputText id="email" value="#{customer.email}"
 									title="email" required="email"
-									requiredMessage="Please enter the email" />  <br /> <h:message
+									requiredMessage="Please enter the customer email"
+									validatorMessage="The email should format as abc@gmail.com."
+									 pt:placeholder="">								
+									<f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
+								    </h:inputText> <br /> <h:message
 									for="email"
 									class="#{!email.valid ? 'label label-warning' : 'none'}" /></td>
 

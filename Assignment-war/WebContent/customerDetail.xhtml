@@ -12,8 +12,8 @@
 <body>
 	<div class="container">
 		<div class="navbar navbar-inverse">
-			<div class="navbar-brand">#{titleController.pageTitle} - View Customer
-			</div>
+			<div class="navbar-brand">#{titleController.pageTitle} - View
+				Customer</div>
 		</div>
 
 		<h:form id="MyForm">
@@ -75,44 +75,79 @@
 				</tr>
 
 			</table>
-			
+
 			<table class="table table-bordered table-striped">
 				<!-- For each contact in customerContact ArrayList... -->
 				<tr>
-					<td><h:outputLabel id="customerContactId" value="customerContactId" /></td>
+					<td><h:outputLabel id="customerContactId"
+							value="customerContactId" /></td>
 					<td><h:outputLabel id="contactName" value="Contact Name" /></td>
 					<td><h:outputLabel id="contactPhone" value="Contact Phone" /></td>
 
 				</tr>
-
+				
+                 
 				<ui:repeat id="Myrepeat"
-					value="#{customerController.customer.customerContacts}" var="customerContact"
-					varStatus="status">
+					value="#{customerController.customer.customerContacts}"
+					var="customerContact" varStatus="status">
 
 					<tr>
-						<td><h:outputText id="customerContactId" value="#{customerContact.customerContactId}"
-								 /></td>
+						<td><h:outputText id="customerContactId"
+								value="#{customerController.customer.customerContacts.get(status.index).customerContactId}" /></td>
 
-						<td><h:outputText id="contactName" value="#{customerContact.contactName}" />
-						</td>
-						
+						<td><h:outputText id="contactName"
+								value="#{customerController.customer.customerContacts.get(status.index).contactName}" /></td>
+
 						<td><h:outputText id="contactPhone"
-								value="#{customerContact.contactPhone}"></h:outputText></td>
-								
-						<td><h:link value="View | " outcome="faces/customerContactDetail.xhtml">
-								<!-- pass the parameter to next page, the param name is conactPersonId
+								value="#{customerController.customer.customerContacts.get(status.index).contactPhone}"></h:outputText></td>
+
+                        <td>
+                              <h:link value="View | " outcome="customerContactDetail.xhtml">
+                              <!-- pass the parameter to next page, the param name is customerIndex, and the value is index + 1.
                                 You can get the value from next page using the indexController -->
-								<f:param name="customerIndex" value="#{customerContact.customerContactId}" />
-							</h:link></td>
+                                <f:param name="customerContactIndex" value="#{customerController.customer.customerContacts.get(status.index).customerContactId}"/>
+                              </h:link>
+                              
+                              <h:link value="Edit | " outcome="editCustomerContact.xhtml">
+                              <!-- pass the parameter to next page, the param name is customerIndex, and the value is index + 1.
+                                You can get the value from next page using the indexController -->
+                                <f:param name="customerContactIndex" value="#{customerController.customer.customerContacts.get(status.index).customerContactId}"/>
+                              </h:link>
+                              
+                                <h:commandLink value="Delete" action="#{removeCustomerContact.removeCustomerContact(contactApplication.customerContacts.get(status.index).customerContactId)}" disabled="#{contactApplication.customerContacts.get(status.index).customerContactId == null}">
+                                </h:commandLink>
+
+                                
+                                 
+                                <h:outputText value=" "/>
+                              
+                         </td>
+						
 					</tr>
 				</ui:repeat>
 			</table>
+			<div>
+                    <h:commandButton id="addContact" value="AddContact" action="addCustomerContact.xhtml" class="btn btn-primary" />
+
+                    <h:commandButton id="viewAll" value="View All" action="#{searchCustomerContact.searchAll()}" class="btn btn-primary" >
+                        <f:param name="customerContactIndex" value="#{customerController.customer.customerContacts.get(status.index).customerContactId}"/>
+                    </h:commandButton>
+                </div>
+                
+                <div>
+                    <h:inputText value="#{searchCustomerContact.searchByInt}" id="searchByContactId" required="true" onchange ="if (document.getElementById('MyForm2:searchById').value.trim() == '') {document.getElementById('MyForm2:searchById').value = 0;} "   />
+                    <h:commandButton id="searchContactId" value="Search by contact Id" action="#{searchCustomerContact.searchCustomerContactById(searchCustomerContact.searchByInt)}" class="btn btn-primary" >
+                        <f:param name="customerContactIndex" value="#{customerController.customer.customerContacts.get(status.index).customerContactId}"/>
+                    </h:commandButton>
+                    
+                  </div>
 			
+
 			
-			
-			
-			
-			<h:link id="close" value="Close" outcome="faces/index.xhtml"
+
+
+
+			<h:link id="close" value="Close" outcome="index.xhtml"
 				class="btn btn-primary" />
 
 		</h:form>

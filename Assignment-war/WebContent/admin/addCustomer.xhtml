@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	<title>#{titleController.pageTitle}</title>
+</h:head>
+<h:body>
+	<div class="container">
+		<div class="navbar navbar-inverse">
+			<div class="navbar-brand">#{titleController.pageTitle} - Add
+				Customer</div>
+		</div>
+		<div>
+			<f:view>
+				<h:form>
+					<h1>
+						<h:outputText value="Create" />
+					</h1>
+
+					<table class="table table-bordered ">
+
+						<tr class="#{!companyName.valid ? 'has-error' : 'none'}">
+							<td width="200"><h:outputLabel value="companyName"
+									for="companyName" /></td>
+							<td><h:inputText id="companyName"
+									value="#{customer.companyName}" title="companyName"
+									required="true"
+									requiredMessage="Please enter the Company Name!"									
+									pt:placeholder=" "/>									
+								  <br /> <h:message for="companyName"
+									class="#{!companyName.valid ? 'label label-warning' : 'none'}" />
+							</td>
+						</tr>
+						
+						<tr class="#{!address.valid ? 'has-error' : 'none'}">
+							<td width="200"><h:outputLabel value="address"
+									for="address" /></td>
+							<td><h:inputText id="addresse"
+									value="#{customer.address}" title="address"
+									required="true"
+									requiredMessage="Please enter the Company address!"									
+									pt:placeholder=" "/>									
+								  <br /> <h:message for="address"
+									class="#{!address.valid ? 'label label-warning' : 'none'}" />
+							</td>
+						</tr>
+
+						<tr class="#{!officephone.valid ? 'has-error' : 'none'}">
+							<td><h:outputLabel value="officephone" for="officephone" />
+							</td>
+							<td><h:inputText id="officephone"
+									value="#{customer.officephone}" title="officephone"
+									required="true"
+									requiredMessage="Please enter the office phone!"
+									validatorMessage="The office phone number must be less than 10 digits."
+									converterMessage="Please enter a number" pt:placeholder="">
+									<f:convertNumber integerOnly="true" />
+									<f:validateLongRange minimum="1" maximum="9999999999" />
+								    </h:inputText> <br /> <h:message for="officephone"
+									class="#{!officephone.valid ? 'label label-warning' : 'none'}" />
+							</td>
+
+						</tr>
+
+						<tr class="#{!registerDate.valid ? 'has-error' : 'none'}">
+							<td><h:outputLabel value="registerDate" for="registerDate" /></td>
+							<td><h:inputText id="registerDate" value="#{customer.registerDate}"
+									title="registerDate" required="true"
+									requiredMessage="Please enter the Register Date!"								
+									pt:placeholder=""/> 																		
+									 <br /> <h:message for="registerDate"
+									class="#{!registerDate.valid ? 'label label-warning' : 'none'}" /></td>
+
+						</tr>
+
+						<tr class="#{!aBN.valid ? 'has-error' : 'none'}">
+							<td><h:outputLabel value="aBN" for="ABN" /></td>
+							<td><h:inputText id="aBN" value="#{customer.aBN}"
+									title="aBN"  required="true"
+									requiredMessage="Please enter the ABN!" pt:placeholder=" " />
+								<br /> <h:message for="aBN"
+									class="#{!aBN.valid ? 'label label-warning' : 'none'}" /></td>
+
+						</tr>
+						<tr class="#{!email.valid ? 'has-error' : 'none'}">
+							<td><h:outputLabel value="email" for="email" /></td>
+							<td><h:inputText id="email" value="#{customer.email}"
+									title="email" required="email"
+									requiredMessage="Please enter the customer email"
+									validatorMessage="The email should format as abc@gmail.com."
+									 pt:placeholder="">								
+									<f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
+								    </h:inputText> <br /> <h:message
+									for="email"
+									class="#{!email.valid ? 'label label-warning' : 'none'}" /></td>
+
+
+						</tr>
+						<tr class="#{!CEO.valid ? 'has-error' : 'none'}">						
+							<td><h:outputLabel value="CEO" for="CEO" /></td>
+							<td><h:inputText id="CEO" value="#{customer.CEO}"
+									title="CEO" required="CEO"
+									requiredMessage="Please enter the CEO name"/>									
+								 <br /> <h:message for="CEO"
+									class="#{!CEO.valid ? 'label label-warning' : 'none'}" /></td>
+
+						</tr>
+
+						<tr>						
+							<td>Industry</td>
+							<td><h:selectOneListbox value="#{customer.industryType}" size="4" >
+                                <f:selectItem itemValue="Bank" itemLabel="Bank" />
+                                <f:selectItem itemValue="Building" itemLabel="Building" />
+                                <f:selectItem itemValue="Data Communication" itemLabel="Data Communication" />
+                                <f:selectItem itemValue="Education" itemLabel="Education" />
+                                <f:selectItem itemValue="Farm" itemLabel="Farm" />
+                                <f:selectItem itemValue="Health" itemLabel="Health"/>
+                                <f:selectItem itemValue="Mining" itemLabel="Mining" />
+                                <f:selectItem itemValue="Publishing" itemLabel="Publishing" />
+
+                            </h:selectOneListbox></td>
+						</tr>
+						
+
+					</table>
+
+					<h:commandButton id="submit" value="Submit"
+						action="#{addCustomer.addCustomer(customer)}"
+						class="btn btn-primary">
+					</h:commandButton>
+					<h:link id="close" value="Close" outcome="index.xhtml"
+						class="btn btn-primary" />
+
+				</h:form>
+
+			</f:view>
+		</div>
+	</div>
+
+</h:body>
+</html>

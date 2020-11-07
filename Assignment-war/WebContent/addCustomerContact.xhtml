@@ -25,16 +25,16 @@
 
 					<table class="table table-bordered ">
 
-						<tr class="#{!ContactName.valid ? 'has-error' : 'none'}">
-							<td width="200"><h:outputLabel value="ContactName"
-									for="ContactName" /></td>
+						<tr class="#{!contactName.valid ? 'has-error' : 'none'}">
+							<td width="200"><h:outputLabel value="contactName"
+									for="contactName" /></td>
 							<td><h:inputText id="ContactName"
-									value="#{customerContactController.customerContact.contactName}" title="ContactName"
+									value="#{AddCustomerContact.customerContact.contactName}" title="ContactName"
 									required="true"
 									requiredMessage="Please enter the Contact Name!"									
 									pt:placeholder=" "/>									
-								  <br /> <h:message for="ContactName"
-									class="#{!ContactName.valid ? 'label label-warning' : 'none'}" />
+								  <br /> <h:message for="contactName"
+									class="#{!contactName.valid ? 'label label-warning' : 'none'}" />
 							</td>
 						</tr>
 
@@ -42,7 +42,7 @@
 							<td><h:outputLabel value="contactPhone" for="contactPhone" />
 							</td>
 							<td><h:inputText id="contactPhone"
-									value="#{customerContactController.customerContact.contactPhone}" title="contactPhone"
+									value="#{AddCustomerContact.customerContact.contactPhone}" title="contactPhone"
 									required="true"
 									requiredMessage="Please enter the Contact Phone!"
 									validatorMessage="The office phone number must be less than 10 digits."
@@ -58,8 +58,8 @@
 						
 						<tr class="#{!email.valid ? 'has-error' : 'none'}">
 							<td><h:outputLabel value="email" for="email" /></td>
-							<td><h:inputText id="email" value="#{customerContactController.customerContact.email}"
-									title="email" required="email"
+							<td><h:inputText id="email" value="#{AddCustomerContact.customerContact.contactEmail}"
+									title="email" required="true"
 									requiredMessage="Please enter the email" />  <br /> <h:message
 									for="email"
 									class="#{!email.valid ? 'label label-warning' : 'none'}" /></td>
@@ -68,7 +68,7 @@
 
 						<tr class="#{!position.valid ? 'has-error' : 'none'}">
 							<td><h:outputLabel value="position" for="position" /></td>
-							<td><h:inputText id="position" value="#{customerContactController.customerContact.position}"
+							<td><h:inputText id="position" value="#{AddCustomerContact.customerContact.position}"
 									title="position"  required="true"
 									requiredMessage="Please enter the position!" pt:placeholder=" " />
 								<br /> <h:message for="position"
@@ -80,8 +80,8 @@
 						</tr>
 						<tr class="#{!gender.valid ? 'has-error' : 'none'}">						
 							<td><h:outputLabel value="gender" for="gender" /></td>
-							<td><h:inputText id="gender" value="#{customerContactController.customerContact.gender}"
-									title="gender" required="gender"
+							<td><h:inputText id="gender" value="#{AddCustomerContact.customerContact.gender}"
+									title="gender" required="true"
 									requiredMessage="Please enter the gender name"/>									
 								 <br /> <h:message for="gender"
 									class="#{!gender.valid ? 'label label-warning' : 'none'}" /></td>
@@ -90,8 +90,8 @@
 
 						<tr class="#{!customerId.valid ? 'has-error' : 'none'}">						
 							<td><h:outputLabel value="customerId" for="customerId" /></td>
-							<td><h:inputText id="customerId" value="#{customerContactController.customerContact.customer.customerId}"
-									title="customerId" required="customerId"
+							<td><h:inputText id="customerId" value="#{AddCustomerContact.customerId}"
+									title="customerId" required="true"
 									requiredMessage="Please enter the customerId "/>									
 								 <br /> <h:message for="customerId"
 									class="#{!customerId.valid ? 'label label-warning' : 'none'}" /></td>
@@ -100,10 +100,14 @@
 
 					</table>
 
+					
+					
 					<h:commandButton id="submit" value="Submit"
-						action="#{addCustomerContact.addCustomerContact(customerContact)}"
+						action="#{AddCustomerContact.addCustomerContactInfor()}"
 						class="btn btn-primary">
+						
 					</h:commandButton>
+					
 					<h:link id="close" value="Close" outcome="faces/indexContact.xhtml"
 						class="btn btn-primary" />
 

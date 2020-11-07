@@ -7,8 +7,12 @@ import javax.inject.Named;
 
 import fit5042.assignm.controllers.ContactApplication;
 import fit5042.assignm.repository.entities.CustomerContact;
+
+import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 
@@ -18,14 +22,14 @@ import javax.faces.context.FacesContext;
 */
 @Named(value = "customerContactController")
 @RequestScoped
-public class CustomerContactController {
+public class CustomerContactController{
 	private int customerContactIndex; //this customerIndex is the index
 
-    public int getCustomerIndex() {
+    public int getCustomerContactIndex() {
         return customerContactIndex;
     }
 
-    public void setCustomerIndex(int customerContactIndex) {
+    public void setCustomerContactIndex(int customerContactIndex) {
         this.customerContactIndex = customerContactIndex;
     }
     private fit5042.assignm.repository.entities.CustomerContact customerContact;
@@ -36,7 +40,7 @@ public class CustomerContactController {
     	customerContactIndex = Integer.valueOf(FacesContext.getCurrentInstance()
                 .getExternalContext()
                 .getRequestParameterMap()
-                .get("customerIndex"));
+                .get("customerContactIndex"));
         // Assign customer based on the id provided 
         customerContact = getCustomerContact();
     }
@@ -54,6 +58,7 @@ public class CustomerContactController {
             // -1 to customerId since we +1 in JSF (to always have positive customer index!) 
             return app.getCustomerContacts().get(--customerContactIndex); //this customer index is the index, don't confuse with the Customer Id
         }
+       
         return customerContact;
     }
 

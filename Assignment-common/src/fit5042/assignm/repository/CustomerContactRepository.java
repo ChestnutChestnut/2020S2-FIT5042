@@ -40,7 +40,7 @@ public interface CustomerContactRepository {
      * @param contactPerson - the contact person that is responsible for the properties
      * @return the properties found
      */
-    public Set<CustomerContact> searchCustomerContactByCustomer(Customer customer) throws Exception;
+    public List<CustomerContact> searchCustomerContactByCustomer(Customer customer) throws Exception;
    
         
     /**

@@ -11,7 +11,7 @@ import javax.faces.bean.ManagedProperty;
 
 /**
 *
-* @author Guan
+* @author Shuang Xu
 */
 @RequestScoped
 @Named("removeCustomerContact")

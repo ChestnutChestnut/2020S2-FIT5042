@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotEmpty;
 
 /**
  *
@@ -67,7 +68,8 @@ public class Property implements Serializable {
     public Address getAddress() {
         return address;
     }
-
+    
+    @NotEmpty(message = "Address should not be empty")
     public void setAddress(Address address) {
         this.address = address;
     }

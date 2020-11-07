@@ -3,6 +3,7 @@ package fit5042.assignm.repository.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -21,6 +22,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.validation.constraints.NotEmpty;
 
 
 
@@ -30,10 +32,10 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Table(name = "CUSTOMER")
-@NamedQueries({@NamedQuery(name = Customer.GET_ALL_QUERY_NAME, query = "SELECT c FROM Customer c order by c.customerId desc")})
+@NamedQueries({@NamedQuery(name = Customer.GET_ALL_CUSTOMERS_QUERY_NAME, query = "SELECT c FROM Customer c order by c.customerId desc")})
 public class Customer implements Serializable {
     
-    public static final String GET_ALL_QUERY_NAME = "Customer.getAll";
+    public static final String GET_ALL_CUSTOMERS_QUERY_NAME = "Customer.getAll";
     
     
 	private int customerId;
@@ -47,13 +49,13 @@ public class Customer implements Serializable {
     private Industry industry;
     
     
-    private Set<CustomerContact> customerContacts;
+    private List<CustomerContact> customerContacts;
 
     public Customer() {
     }
 
     public Customer(int customerId, String companyName, int officephone, String address, String registerDate,
-			String aBN, String email, String CEO,Industry industry) {
+			String aBN, String email, String CEO,Industry industry,List<CustomerContact> customerContacts) {
 		this.customerId = customerId;
 		this.companyName = companyName;
 		this.officephone = officephone;
@@ -63,7 +65,7 @@ public class Customer implements Serializable {
 		this.email = email;
 		this.CEO =CEO;
 		this.industry = industry;
-		this.customerContacts = new HashSet<>();
+		this.customerContacts = customerContacts;
 	}
 
     
@@ -81,6 +83,7 @@ public class Customer implements Serializable {
 		this.customerId = customerId;
 	}
 
+	@NotEmpty(message = "Company name should not be empty")
 	public String getCompanyName() {
 		return companyName;
 	}
@@ -153,11 +156,11 @@ public class Customer implements Serializable {
 	
 	
 	@OneToMany(mappedBy = "customer",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	public Set<CustomerContact> getCustomerContacts() {
+	public List<CustomerContact> getCustomerContacts() {
 		return customerContacts;
 	}
 
-	public void setCustomerContacts(Set<CustomerContact> customerContacts) {
+	public void setCustomerContacts(List<CustomerContact> customerContacts) {
 		this.customerContacts = customerContacts;
 	}
 	

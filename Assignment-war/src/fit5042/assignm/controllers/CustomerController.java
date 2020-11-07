@@ -1,13 +1,21 @@
 package fit5042.assignm.controllers;
 
+import java.io.Serializable;
+import java.util.Set;
+
 import javax.el.ELContext;
 import javax.inject.Named;
 
 import fit5042.assignm.controllers.CustomerApplication;
 import fit5042.assignm.repository.entities.Industry;
 
+import fit5042.assignm.repository.entities.CustomerContact;
+import fit5042.assignm.repository.entities.Customer;
+
+import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 
 
@@ -15,9 +23,9 @@ import javax.faces.context.FacesContext;
 *
 * @author Shuang Xu
 */
-@Named(value = "customerController")
 @RequestScoped
-public class CustomerController {
+@Named(value = "customerController")
+public class CustomerController{
 	private int customerIndex; //this customerIndex is the index
 	
 	
@@ -29,7 +37,11 @@ public class CustomerController {
     public void setCustomerIndex(int customerIndex) {
         this.customerIndex = customerIndex;
     }
-    private fit5042.assignm.repository.entities.Customer customer;
+    private Customer customer;
+    
+   
+    
+    
 
     public CustomerController() {
         // Assign customer identifier via GET param 
@@ -39,12 +51,15 @@ public class CustomerController {
                 .getRequestParameterMap()
                 .get("customerIndex"));
         // Assign customer based on the id provided 
-        customer = getCustomer();
+    	customer = getCustomer();
+    	
+        
     }
 
-    public fit5042.assignm.repository.entities.Customer getCustomer() {
+    public Customer getCustomer() {
         if (customer == null) {
             // Get application context bean CustomerApplication 
+        	
             ELContext context
                     = FacesContext.getCurrentInstance().getELContext();
             CustomerApplication app
@@ -57,6 +72,12 @@ public class CustomerController {
         }
         return customer;
     }
+    
+    public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	
     
     
    
